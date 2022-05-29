@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
+body {
+  background: hsl(185, 41%, 84%);
+  font-family: Space Mono;
+}
+
+@media (max-width: 475px) {
+  .display-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .percentage-grid {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 2px solid yellow;
+  }
+}
+
+@media (max-width: 375px) {
+  .display-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1000px) {
+  .display-container {
+    max-width: 60%;
+  }
+}
