@@ -11,6 +11,7 @@ function Display() {
 
 	const [total, setTotal] = useState(0);
 	const [tipAmount, setTipAmount] = useState(0);
+	const [percentage, setPercentage] = useState(0);
 
 	function handlePeopleChange(e) {
 		let people = e.target.value;
@@ -39,6 +40,7 @@ function Display() {
 
 	function handlePercentage(e) {
 		let percentage = e.target.value;
+		setPercentage(percentage * 100);
 		setCheck({
 			...check,
 			percentage,
@@ -49,14 +51,18 @@ function Display() {
 		setTipAmount(newTip);
 	}
 
-	// function calculateTip(e) {
-	// 	e.preventDefault();
-	// 	const newPeople = parseInt(people);
-	// 	const newTip = Math.floor((bill * percentage) / newPeople);
-	// 	const newBill = Math.ceil(bill / people + newTip);
-	// 	setTotal(newBill);
-	// 	setTipAmount(newTip);
-	// }
+	const handleCustomAmount = () => {
+		let userInput = prompt('Enter Custom Amount');
+		let customPercent = userInput / 100;
+		setCheck({
+			...check,
+			percentage: customPercent,
+		});
+		const newTip = Math.ceil((check.bill * customPercent) / check.people);
+		const newBill = Math.ceil(check.bill / check.people + newTip);
+		setTotal(newBill);
+		setTipAmount(newTip);
+	};
 
 	function reset() {
 		setCheck({
@@ -83,7 +89,9 @@ function Display() {
 						/>
 					</label>
 					<div className="percentage">
-						<p>Select Tip %</p>
+						<p>
+							Select Tip: <span>{percentage}%</span>
+						</p>
 						<div className="percentage-grid">
 							<Button value={0.05} onClick={handlePercentage}>
 								5%
@@ -100,9 +108,7 @@ function Display() {
 							<Button value={0.5} onClick={handlePercentage}>
 								50%
 							</Button>
-							<Button value={0} onClick={handlePercentage}>
-								Custom
-							</Button>
+							<Button onClick={handleCustomAmount}>Custom</Button>
 						</div>
 					</div>
 					<label className="people-section">
@@ -122,8 +128,8 @@ function Display() {
 			<div className="right-side">
 				<ResultsContainer>
 					<TopWrap>
-						<p>Bill Total:$ {check.bill}</p>
-						<p>Tip percentage:% {check.percentage}</p>
+						<p>Bill Total: ${check.bill}</p>
+						<p>Tip percentage:{percentage}%</p>
 						<p># of people in group: {check.people}</p>
 						<p>Tip Amount</p>
 						<p>/ person</p>
