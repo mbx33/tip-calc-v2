@@ -60,6 +60,7 @@ function Display() {
 		});
 		const newTip = Math.ceil((check.bill * customPercent) / check.people);
 		const newBill = Math.ceil(check.bill / check.people + newTip);
+		setPercentage(customPercent * 100);
 		setTotal(newBill);
 		setTipAmount(newTip);
 	};
